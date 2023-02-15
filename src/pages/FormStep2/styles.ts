@@ -46,4 +46,7 @@ export const Container = styled.div`
     cursor: pointer;
     margin-top: 30px;
   }
+
+  .backButton {
+  }
 `;
