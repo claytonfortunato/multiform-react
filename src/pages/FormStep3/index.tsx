@@ -21,17 +21,23 @@ export const FormStep3 = () => {
   }, []);
 
   const handleNextStep = () => {
-    if (state.name !== "") {
-      navigate("/step2");
+    if (state.email !== "" && state.github !== "") {
+      console.log(state);
     } else {
-      alert("Preencha os dados.");
+      alert("Preencha os dados");
     }
   };
 
-  const setLevel = (level: number) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: FormActions.setLevel,
-      payload: level,
+      type: FormActions.setEmail,
+      payload: e.target.value,
+    });
+  };
+  const handleGithubChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: FormActions.setGithub,
+      payload: e.target.value,
     });
   };
 
@@ -39,35 +45,34 @@ export const FormStep3 = () => {
     <Theme>
       <C.Container>
         <p>Passo 3/3 </p>
-        <h1>{state.name}, o que melhor descreve você?</h1>
-        <p>
-          Escolha a opção que melhor condiz com seu estado atual,
-          profissionalmente.
-        </p>
+        <h1>Legal {state.name}, onde te achamos?</h1>
+        <p>Preencha com seus contatos para conseguirmos entrar em contato.</p>
 
         <hr />
 
-        <SelectOption
-          title="Sou programador iniciante"
-          description="Programo menos de 2 anos"
-          icon=" 🥳 "
-          selected={state.level === 0}
-          onClick={() => setLevel(0)}
-        />
+        <label>
+          Qual seu e-mail?
+          <input
+            type="email"
+            value={state.email}
+            onChange={handleEmailChange}
+          />
+        </label>
 
-        <SelectOption
-          title="Sou programador experiente"
-          description="Já programo há 2 anos ou mais"
-          icon=" 😎 "
-          selected={state.level === 1}
-          onClick={() => setLevel(1)}
-        />
+        <label>
+          Qual seu Github?
+          <input
+            type="url"
+            value={state.github}
+            onChange={handleGithubChange}
+          />
+        </label>
 
-        <Link to="/" className="backButton">
+        <Link to="/step2" className="backButton">
           Voltar
         </Link>
 
-        <button onClick={handleNextStep}>Próximo</button>
+        <button onClick={handleNextStep}>Finalizar cadastro</button>
       </C.Container>
     </Theme>
   );
